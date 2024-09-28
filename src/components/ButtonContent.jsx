@@ -35,7 +35,7 @@ const ButtonContent = ({ isOpen }) => {
       variants={contentVariants}
       transition={{ duration: 0.9 }}
     >
-      <ul>
+      <ul data-testid="inner-content">
         <li>
           <CiFolderOn className="content-icon" />
           <span>Project</span>
