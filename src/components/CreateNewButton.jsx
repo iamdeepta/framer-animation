@@ -1,14 +1,14 @@
-import { motion } from "framer-motion";
-import React, { useState } from "react";
+import { m } from "framer-motion";
+import React, { useContext, useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
+import { muteButtonContext } from "../App";
 import ButtonContent from "./ButtonContent";
 
 const CreateNewButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  //sound
-  const sound = new Audio("pop.mp3");
+  const { isMute } = useContext(muteButtonContext);
 
   //set duration
   const duration = 0.5;
@@ -99,11 +99,19 @@ const CreateNewButton = () => {
     },
   };
 
+  //if button is expand
   const openButton = () => {
-    sound.play(); //Add sound
-    setIsOpen(true);
+    if (!isOpen) {
+      if (!isMute) {
+        //sound
+        const sound = new Audio("pop.mp3");
+        sound.play(); //Add sound
+      }
+      setIsOpen(true);
+    }
   };
 
+  //if button gets shrinked
   const closeButton = (e) => {
     e.stopPropagation();
     setIsOpen(false);
@@ -111,36 +119,36 @@ const CreateNewButton = () => {
 
   return (
     <>
-      <motion.button
+      <m.button
         onClick={openButton}
         initial={buttonInitial}
         animate={isOpen ? "open" : "closed"}
         variants={buttonVariants}
         transition={{ duration }}
       >
-        <motion.span
+        <m.span
           className="button-text"
           initial={buttonTextInitials}
           animate={isOpen ? "open" : "closed"}
           variants={buttonTextVariants}
           transition={{ duration }}
         >
-          <motion.span
+          <m.span
             initial={addIconInitials}
             animate={isOpen ? "open" : "closed"}
             variants={addIconVariants}
           >
             <FiPlus className="plus-icon" />
-          </motion.span>
-          <motion.span
+          </m.span>
+          <m.span
             initial={createNewTextInitials}
             animate={isOpen ? "open" : "closed"}
             variants={createNewTextVariants}
             transition={{ duration }}
           >
             Create New
-          </motion.span>
-          <motion.span
+          </m.span>
+          <m.span
             initial={closeIconInitials}
             animate={isOpen ? "open" : "closed"}
             variants={closeIconVariants}
@@ -150,11 +158,11 @@ const CreateNewButton = () => {
               className="close-icon"
               onClick={(e) => closeButton(e)}
             />
-          </motion.span>
-        </motion.span>
+          </m.span>
+        </m.span>
 
-        <ButtonContent isOpen={isOpen} />
-      </motion.button>
+        {isOpen && <ButtonContent isOpen={isOpen} />}
+      </m.button>
     </>
   );
 };

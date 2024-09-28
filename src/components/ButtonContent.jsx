@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import React from "react";
 import {
   CiCalendar,
@@ -28,7 +28,7 @@ const ButtonContent = ({ isOpen }) => {
   };
 
   return (
-    <motion.div
+    <m.div
       className="content"
       initial={contentInitials}
       animate={isOpen ? "open" : "closed"}
@@ -56,7 +56,7 @@ const ButtonContent = ({ isOpen }) => {
           <CiCalendar className="content-icon" /> <span>Reminder</span>
         </li>
       </ul>
-    </motion.div>
+    </m.div>
   );
 };
 
