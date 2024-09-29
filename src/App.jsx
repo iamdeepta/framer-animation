@@ -3,6 +3,7 @@ import React, { Suspense, createContext, lazy, useState } from "react";
 
 const CreateNewButton = lazy(() => import("./components/CreateNewButton"));
 const MuteButton = lazy(() => import("./components/MuteButton"));
+const Loader = lazy(() => import("./components/Loader"));
 
 export const muteButtonContext = createContext();
 
@@ -11,7 +12,7 @@ const App = () => {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         {/* use context for mute state management throughout the app */}
         <muteButtonContext.Provider value={{ isMute, setIsMute }}>
           {/* reduce bundle size */}

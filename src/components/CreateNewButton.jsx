@@ -1,9 +1,11 @@
 import { m } from "framer-motion";
-import React, { useContext, useState } from "react";
+import React, { lazy, Suspense, useContext, useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { FiPlus } from "react-icons/fi";
 import { muteButtonContext } from "../App";
-import ButtonContent from "./ButtonContent";
+
+const ButtonContent = lazy(() => import("./ButtonContent"));
+const Loader = lazy(() => import("./Loader"));
 
 const CreateNewButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -161,7 +163,9 @@ const CreateNewButton = () => {
           </m.span>
         </m.span>
 
-        {isOpen && <ButtonContent isOpen={isOpen} />}
+        <Suspense fallback={<Loader />}>
+          {isOpen && <ButtonContent isOpen={isOpen} />}
+        </Suspense>
       </m.button>
     </>
   );
